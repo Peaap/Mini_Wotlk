@@ -50,3 +50,20 @@ AwesomeWotlkLib.dll
 
 The code cave begins at `0x009DE3C0`. The patcher also enables the PE
 `IMAGE_FILE_LARGE_ADDRESS_AWARE` flag.
+
+
+The loader hook is placed at the successful return of the native
+`ScanDllStart`, then loads `AwesomeWotlkLib.dll` with the client's internal DLL
+loader. This allows existing `Data/Extensions/clientextensions.dll` behavior to
+run first.
+
+## Current Compatibility Build
+
+This custom-client build keeps the stable feature set narrow:
+
+- enabled: core API modules, `NamePlates`, macro conditionals, `Spell`
+- disabled: `D3D`, `Camera`, `MSDF`, `VoiceChat`, full miscellaneous interaction module
+
+That avoids known conflicts with custom clients that already ship their own
+renderer/UI hooks through `clientextensions.dll`.
+
